@@ -1,0 +1,25 @@
+{
+	"newItem":
+	{
+		"Options":
+		{
+			"Lock" : "key"
+			"Osc":
+			{
+				"Lock" : "key",
+				"Path" : "newItem/",
+				"Type" : "f",
+				"MaxValue" : "1",
+				"MinValue" : "0"
+			},
+			"Midi":
+			{
+				"Lock"    : "key",
+				"Type"    : "CC",
+				"Channel" : "0",
+				"Control" : "0"
+			}
+		},
+		"Type"   : "SoftwareItem"
+	}
+}

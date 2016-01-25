@@ -1,0 +1,478 @@
+{
+    "Resolume": {
+        "Clip": {
+            "Item": "SoftwareGroup",
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "1",
+                    "MinValue": "0",
+                    "Path": "newgroup/",
+                    "Type": "f"
+                }
+            }
+        },
+        "Composition": {
+            "Item": "SoftwareItem",
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "1",
+                    "MinValue": "0",
+                    "Path": "newItem/",
+                    "Type": "f"
+                }
+            }
+        },
+        "Cue Points": {
+            "Get CuePoint": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "%i",
+                        "MinValue": "%i",
+                        "Path": "jumptopointofinterest",
+                        "Type": "i"
+                    }
+                }
+            },
+            "Item": "SoftwareGroup",
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "",
+                    "MinValue": "",
+                    "Path": "video/position",
+                    "Type": ""
+                }
+            },
+            "Set CuePoint": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "%i",
+                        "MinValue": "%i",
+                        "Path": "pointofintereset",
+                        "Type": "i"
+                    }
+                }
+            }
+        },
+        "Dashboard": {
+            "Item": "SoftwareGroup",
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "1",
+                    "MinValue": "0",
+                    "Path": "link%i/values",
+                    "Type": "f"
+                }
+            }
+        },
+        "Item": "Software",
+        "Layer": {
+            "Item": "SoftwareGroup",
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "1",
+                    "MinValue": "0",
+                    "Path": "newgroup/",
+                    "Type": "f"
+                }
+            }
+        },
+        "Options": {
+            "Item": "SoftwareItemOption",
+            "Lock": "key",
+            "Osc": {
+                "Item": "SoftwareItemOtion",
+                "Lock": "key",
+                "Path": "",
+                "Port Input": "1234",
+                "Port Output": "12345"
+            }
+        },
+        "Transform": {
+            "AnchorX": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "anchorx/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "AnchorY": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "anchory/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "AnchorZ": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "anchorz/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "Height": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "height/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "Item": "SoftwareGroup",
+            "Opacity": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "opacity/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "1",
+                    "MinValue": "0",
+                    "Path": "video/",
+                    "Type": ""
+                }
+            },
+            "PositionX": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "positionx/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "PositionY": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "positiony/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "Width": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "width/values",
+                        "Type": "f"
+                    }
+                }
+            }
+        },
+        "TransformBase": {
+            "Item": "SoftwareGroup",
+            "Options": {
+                "Item": "SoftwareItemOption",
+                "Lock": "key",
+                "Midi": {
+                    "Channel": "0",
+                    "Control": "0",
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Type": "CC"
+                },
+                "Osc": {
+                    "Item": "SoftwareItemOtion",
+                    "Lock": "key",
+                    "MaxValue": "1",
+                    "MinValue": "0",
+                    "Path": "",
+                    "Type": "f"
+                }
+            },
+            "RotateX": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "rotatex/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "RotateY": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "rotatey/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "RotateZ": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "rotatez/values",
+                        "Type": "f"
+                    }
+                }
+            },
+            "Scale": {
+                "Item": "SoftwareItem",
+                "Options": {
+                    "Item": "SoftwareItemOption",
+                    "Lock": "key",
+                    "Midi": {
+                        "Channel": "0",
+                        "Control": "0",
+                        "Item": "SoftwareItemOption",
+                        "Lock": "key",
+                        "Type": "CC"
+                    },
+                    "Osc": {
+                        "Item": "SoftwareItemOtion",
+                        "Lock": "key",
+                        "MaxValue": "1",
+                        "MinValue": "0",
+                        "Path": "scale/values",
+                        "Type": "f"
+                    }
+                }
+            }
+        }
+    }
+}

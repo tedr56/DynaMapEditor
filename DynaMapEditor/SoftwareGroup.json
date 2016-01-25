@@ -1,0 +1,28 @@
+{
+	"newGroup":
+	{
+		"Item"   : "SoftwareGroup",
+		"Options":
+		{
+			"Lock" : "key",
+			"Item"   : "SoftwareItemOption",
+			"Osc"  :
+			{
+				"Item"   : "SoftwareItemOtion",
+				"Lock"  : "key",
+				"Path" : "newgroup/",
+				"Type" : "f",
+				"MaxValue" : "1",
+				"MinValue" : "0"
+			},
+			"Midi" :
+			{
+				"Item"   : "SoftwareItemOption",
+				"Lock"    : "key",
+				"Type"    :  "CC",
+				"Channel" : "0",
+				"Control" : "0"
+			}
+		}
+	}
+}

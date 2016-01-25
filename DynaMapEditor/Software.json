@@ -1,0 +1,19 @@
+{
+	"newSoftware":
+	{
+		"Item"   : "Software",
+		"Options":
+		{
+			"Lock" : "key",
+			"Item"   : "SoftwareItemOption",
+			"Osc"  :
+			{
+				"Item"       : "SoftwareItemOtion",
+				"Lock"       : "key",
+				"Path"       : "",
+				"Port Input" : "1234",
+				"Port Output": "12345"
+			}
+		}
+	}
+}

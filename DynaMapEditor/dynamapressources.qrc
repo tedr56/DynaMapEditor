@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Software.json</file>
+        <file>SoftwareItem.json</file>
+        <file>SoftwareTree.json</file>
+        <file>SoftwareGroup.json</file>
+        <file>Controller.json</file>
+    </qresource>
+</RCC>
