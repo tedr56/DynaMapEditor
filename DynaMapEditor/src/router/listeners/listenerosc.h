@@ -2,10 +2,11 @@
 #define LISTENEROSC_H
 
 #include <QObject>
+#include "listener.h"
 #include <lo/lo.h>
 //#include <lo/lo_cpp.h>
 //#include <lo/lo_serverthread.h>
-class ListenerOsc : public QObject
+class ListenerOsc : public Listener
 {
     Q_OBJECT
 public:

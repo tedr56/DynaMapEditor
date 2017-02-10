@@ -2,8 +2,9 @@
 #define LISTENERKEYBOARD_H
 
 #include <QObject>
+#include "listener.h"
 
-class ListenerKeyboard : public QObject
+class ListenerKeyboard : public Listener
 {
     Q_OBJECT
 public:

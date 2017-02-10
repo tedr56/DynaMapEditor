@@ -35,12 +35,13 @@ SOURCES += src/main.cpp \
     src/router/controls/controlmidi.cpp \
     src/router/controls/controlkeyboard.cpp \
     src/learn/controllearn.cpp \
-    src/router/listeners/keyboard/listenerkeyboard.cpp \
     src/router/listeners/listener.cpp \
     src/router/helpers/routereventhelper.cpp \
     src/router/helpers/controleventhelper.cpp \
     src/router/listeners/osc/oscserver.cpp \
-    src/router/listeners/osc/listenerosc.cpp
+    src/router/listeners/listenerkeyboard.cpp \
+    src/router/listeners/listenerosc.cpp \
+    src/router/listeners/listenermidi.cpp
 
 HEADERS  += \
     src/models/softwaremodel.h \
@@ -60,12 +61,13 @@ HEADERS  += \
     src/router/controls/controlkeyboard.h \
     src/router/controlglobal.h \
     src/learn/controllearn.h \
-    src/router/listeners/keyboard/listenerkeyboard.h \
     src/router/listeners/listener.h \
     src/router/helpers/routereventhelper.h \
     src/router/helpers/controleventhelper.h \
     src/router/listeners/osc/oscserver.h \
-    src/router/listeners/osc/listenerosc.h
+    src/router/listeners/listenerkeyboard.h \
+    src/router/listeners/listenerosc.h \
+    src/router/listeners/listenermidi.h
 
 FORMS    += src/mainwindow.ui \
     src/instancegroupdialog.ui \
@@ -78,7 +80,5 @@ DISTFILES +=
 
 RESOURCES += \
     dynamapressources.qrc
-
-LIBS += -lo
 
 unix|win32: LIBS += -llo
