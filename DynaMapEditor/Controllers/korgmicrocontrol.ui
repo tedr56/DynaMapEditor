@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>859</width>
-    <height>300</height>
+    <width>1115</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -408,26 +408,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <widget class="QScrollBar" name="Piano">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QScrollBar" name="horizontalScrollBar">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>

@@ -4,15 +4,17 @@
 //#include <QObject>
 #include "controlinterface.h"
 
-class ControlOsc : public QObject, public ControlInterface {
+class ControlOsc : /*public QObject,*/ public ControlInterface {
     Q_OBJECT
-    Q_INTERFACES(ControlInterface)
+    //Q_INTERFACES(ControlInterface)
 public:
     ControlOsc();
     virtual ~ControlOsc() { }
 
     bool setAddress(QStringList Address);
     bool setValue(QString);
+signals:
+    void valueChanged(QVariant);
 private:
     int m_typeSelect;
 };

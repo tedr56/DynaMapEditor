@@ -5,6 +5,9 @@
 #include "models/controlmodel.h"
 #include "models/filterjsonproxy.h"
 
+//Controller management Window
+//Opens ControlLearn for Control Editing
+
 namespace Ui {
 class ControllersControlGroupDialog;
 }
@@ -21,17 +24,19 @@ public:
     void setRoot(QModelIndex rootIndex);
 
 public slots:
-    void addControl();
+    void addControlMode(bool checked);
 //    void delControl();
 //    void addGroup();
 //    void delGroup();
 //    void addClone();
 //    void delClone();
-
+    void setLearnMode(bool);
 private:
     Ui::ControllersControlGroupDialog *ui;
     FilterJsonProxy* ControlProxy;
     bool eventFilter(QObject *object, QEvent *event);
+
+    void addControl(QWidget* widget);
 };
 
 #endif // CONTROLLERSCONTROLGROUPDIALOG_H

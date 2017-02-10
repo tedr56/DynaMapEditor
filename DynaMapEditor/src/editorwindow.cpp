@@ -1,24 +1,25 @@
+#include "ui_mainwindow.h"
+
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtUiTools/QUiLoader>
+#include <QSettings>
+
 #include "editorwindow.h"
 
 #include "models/softwaretypedelegate.h"
 #include "models/qjsonmodel.h"
 #include "instancegroupdialog.h"
 #include "controllerscontrolgroupdialog.h"
+#include "ui_mainwindow.h"
 
-//TODO : Add connect QModelIndexList for Instance autochange from SoftwareGroups
-//TODO : Support %n for osc path
-//TODO : Support %i (instances) fields/value
-//TODO : Add Midi/OSC sender for Software Learn
-//TODO : Sort SoftwareItem/ Path by Name for SLOT(dataChanged)
 
 EditorWindow::EditorWindow(QWidget *parent) :
-QMainWindow(parent)
+QMainWindow(parent),
+ui(new Ui::Editor)
 {
-    setupUi(this);
+    ui->setupUi(this);
 
     QStringList headers;
     headers << tr("Title") << tr("Type") << tr("Instances") << tr("Osc") << tr("Midi");
@@ -28,40 +29,47 @@ QMainWindow(parent)
     Softwares->load(":/SoftwareTree.json");
 
     SoftwaresProxy->setSourceModel(Softwares);
-    SoftwareTree->setModel(SoftwaresProxy);
+    ui->SoftwareTree->setModel(SoftwaresProxy);
 
 //    SoftwareTree->setSortingEnabled(true);
 //    SoftwareTree->sortByColumn(0);
 
     Controllers = new ControlModel(this);
 
-    //Headbar Connections
-    connect(actionSave_Software_File, SIGNAL(triggered()), this, SLOT(saveSoftware()));
-    connect(actionSave_Selection, SIGNAL(triggered()), this, SLOT(saveSelection()));
-    connect(actionHide_Options, SIGNAL(toggled(bool)), this, SLOT(hideSoftwareOptions(bool)));
-    connect(actionHide_Groups, SIGNAL(toggled(bool)), this, SLOT(hideSoftwareGroups(bool)));
+    //Headbar Softwar Connections
+    connect(ui->actionSave_Software_File, SIGNAL(triggered()), this, SLOT(saveSoftware()));
+    connect(ui->actionSave_Selection, SIGNAL(triggered()), this, SLOT(saveSelection()));
+    connect(ui->actionHide_Options, SIGNAL(toggled(bool)), this, SLOT(hideSoftwareOptions(bool)));
+    connect(ui->actionHide_Groups, SIGNAL(toggled(bool)), this, SLOT(hideSoftwareGroups(bool)));
 
-    connect(actionOpen_Controller_UI, SIGNAL(triggered()), this, SLOT(addControlUI()));
+    //HEADBAR Controller Actions
+    connect(ui->actionOpen_Controller_UI, SIGNAL(triggered()), this, SLOT(addControlUI()));
+    connect(ui->actionSave_Controller_File, SIGNAL(triggered(bool)), this, SLOT(saveControlFile()));
 
     //Software Buttons Connection
-    connect(SoftAdd, SIGNAL(clicked()), this, SLOT(addSoftware()));
-    connect(SoftDel, SIGNAL(clicked()), this, SLOT(delSoftware()));
-    connect(SoftItemAdd, SIGNAL(clicked()), this, SLOT(addSoftwareItem()));
-    connect(SoftItemDel , SIGNAL(clicked()), this, SLOT(delSoftwareItem()));
-    connect(SoftGroupAdd, SIGNAL(clicked()), this, SLOT(addSoftwareGroup()));
-    connect(SoftGroupDel, SIGNAL(clicked()), this, SLOT(delSoftwareGroup()));
-    connect(SoftInstanceAdd, SIGNAL(clicked()), this, SLOT(addSoftwareInstance()));
-    connect(SoftInstanceDel, SIGNAL(clicked()), this, SLOT(delSoftwareInstance()));
+    connect(ui->SoftAdd, SIGNAL(clicked()), this, SLOT(addSoftware()));
+    connect(ui->SoftDel, SIGNAL(clicked()), this, SLOT(delSoftware()));
+    connect(ui->SoftItemAdd, SIGNAL(clicked()), this, SLOT(addSoftwareItem()));
+    connect(ui->SoftItemDel , SIGNAL(clicked()), this, SLOT(delSoftwareItem()));
+    connect(ui->SoftGroupAdd, SIGNAL(clicked()), this, SLOT(addSoftwareGroup()));
+    connect(ui->SoftGroupDel, SIGNAL(clicked()), this, SLOT(delSoftwareGroup()));
+    connect(ui->SoftInstanceAdd, SIGNAL(clicked()), this, SLOT(addSoftwareInstance()));
+    connect(ui->SoftInstanceDel, SIGNAL(clicked()), this, SLOT(delSoftwareInstance()));
 
     //Controllers Buttons Connections
-    connect(ControllerControls, SIGNAL(clicked()), this, SLOT(manageControl()));
+    connect(ui->ControllerControls, SIGNAL(clicked()), this, SLOT(manageControl()));
     //Debug
     //connect(SoftwareTree->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(selection(QItemSelection,QItemSelection)));
+
+    QSettings settings;
+    if (settings.contains("Controller")) {
+        addControlUI(settings.value("Controller").toString());
+    }
 }
 
 EditorWindow::~EditorWindow()
 {
-
+    delete ui;
 }
 
 void EditorWindow::saveSoftware()
@@ -149,11 +157,11 @@ void EditorWindow::addSoftwareInstance()
         QModelIndex GroupSelect = dialog.getGroupSelection();
         QModelIndex TreeSelect = dialog.getTreeSelection();
         int Instances = dialog.getNumInstances();
-        SoftwareTree->selectionModel()->clear();
-        SoftwareTree->scrollTo(GroupSelect);
-        SoftwareTree->scrollTo(TreeSelect);
-        SoftwareTree->selectionModel()->select(getFilterIndex(GroupSelect), QItemSelectionModel::Select | QItemSelectionModel::Rows);
-        SoftwareTree->selectionModel()->select(getFilterIndex(TreeSelect), QItemSelectionModel::Select | QItemSelectionModel::Rows);
+        ui->SoftwareTree->selectionModel()->clear();
+        ui->SoftwareTree->scrollTo(GroupSelect);
+        ui->SoftwareTree->scrollTo(TreeSelect);
+        ui->SoftwareTree->selectionModel()->select(getFilterIndex(GroupSelect), QItemSelectionModel::Select | QItemSelectionModel::Rows);
+        ui->SoftwareTree->selectionModel()->select(getFilterIndex(TreeSelect), QItemSelectionModel::Select | QItemSelectionModel::Rows);
         QModelIndex newSelection = Softwares->appendInstance(TreeSelect, GroupSelect, Instances);
         selectSoftwareRow(newSelection);
     }
@@ -195,16 +203,6 @@ void EditorWindow::addControlUI()
     QString ApplicationPath = QApplication::applicationDirPath();
 
     QString selectedFilter;
-    QString sourceUiPath = QFileDialog::getOpenFileName(this,
-                                tr("QFileDialog::getOpenFileName()"),
-                                ApplicationPath,
-                                tr("Qt UI Files (*.ui)"),
-                                &selectedFilter);
-    qDebug() << "Filename: " << sourceUiPath;
-    if (sourceUiPath.isEmpty())
-    {
-        return;
-    }
 
     //Backup directory for UI/Json files
     if (!QDir("Controllers").exists())
@@ -212,6 +210,24 @@ void EditorWindow::addControlUI()
         QDir().mkdir("Controllers");
     }
 
+    QString sourceUiPath = QFileDialog::getOpenFileName(this,
+                                tr("QFileDialog::getOpenFileName()"),
+                                ApplicationPath + "/Controllers",
+                                tr("Qt UI Files (*.ui)"),
+                                &selectedFilter);
+    qDebug() << "Filename: " << sourceUiPath;
+    if (sourceUiPath.isEmpty())
+    {
+        return;
+    }
+    addControlUI(sourceUiPath);
+}
+
+void EditorWindow::addControlUI(QString sourceUiPath) {
+    QSettings settings;
+    settings.setValue("Controller", sourceUiPath); ;
+
+    QString ApplicationPath = QApplication::applicationDirPath();
     QFileInfo fileInfo(sourceUiPath);
 
 
@@ -252,7 +268,7 @@ void EditorWindow::addControlUI()
     }
 
     QFile destinationUIFile(ApplicationPath + "/Controllers/" + fileInfo.fileName());
-    if (destinationUIFile.exists())
+    if (destinationUIFile.exists() && fileInfo.absoluteDir() == QFileInfo(ApplicationPath).absoluteDir())
     {
         QMessageBox msgBox(QMessageBox::Warning, tr("QMessageBox::warning()"), tr("Ui File already exists"), 0, this);
         msgBox.addButton(tr("&Override"), QMessageBox::AcceptRole);
@@ -293,22 +309,28 @@ void EditorWindow::addControlUI()
 //        rootObject.insert(fileInfo.baseName() , QJsonValue());
 //        JsonDocument.setObject(rootObject);
     }
-    ControllerTree->setModel(Controllers);
+    ui->ControllerTree->setModel(Controllers);
     Controllers->loadJson(JsonDocument.toJson());
 
     QUiLoader UILoader;
     QFile controller("Controllers/" + fileInfo.fileName());
     controller.open(QFile::ReadOnly | QFile::Text);
-    clearLayout(ControllerUI->layout());
-    ControllerUI->layout()->addWidget(UILoader.load(&controller, ControllerUI));
-    currentControl = fileInfo.baseName();
+    clearLayout(ui->ControllerUI->layout());
+//    try:
+        QWidget* newController = UILoader.load(&controller, ui->ControllerUI);
+        if (newController) {
+        ui->ControllerUI->layout()->addWidget(newController);
+        currentControl = fileInfo.baseName();
+        }
+//    catch:
+//        qDebug <<
     controller.close();
     return;
 }
 
 void EditorWindow::loadControlUI()
 {
-    QModelIndex Select = ControllerTree->selectionModel()->selectedIndexes()[0];
+    QModelIndex Select = ui->ControllerTree->selectionModel()->selectedIndexes()[0];
     QModelIndex SelectRoot = Controllers->getRootSelection(Select);
     QString Key = Controllers->data(SelectRoot, Qt::DisplayRole).toString();
     qDebug() << Key;
@@ -332,9 +354,27 @@ void EditorWindow::loadControlUI()
          return;
     }
     QUiLoader UiLoader;
-    clearLayout(ControllerUI->layout());
-    ControllerUI->layout()->addWidget(UiLoader.load(&controllerUIFile, ControllerUI));
+    clearLayout(ui->ControllerUI->layout());
+    ui->ControllerUI->layout()->addWidget(UiLoader.load(&controllerUIFile, ui->ControllerUI));
     controllerUIFile.close();
+}
+
+void EditorWindow::saveControlFile()
+{
+    QSettings settings;
+    if (settings.contains("Controller")) {
+        //addControlUI(settings.value("Controller").toString());
+        QString filename;
+        filename = settings.value("Controller").toString();
+        Softwares->save(filename);
+        /*
+        QFile f(filename);
+        //f.open(QIODevice::WriteOnly);
+        f.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
+
+        f.close();
+        */
+    }
 }
 
 void EditorWindow::manageControl()
@@ -354,7 +394,7 @@ void EditorWindow::manageControl()
 
 QModelIndex EditorWindow::getSourceSelection()
 {
-    QModelIndexList selection = SoftwareTree->selectionModel()->selectedIndexes();
+    QModelIndexList selection = ui->SoftwareTree->selectionModel()->selectedIndexes();
     if (selection.size())
         return getSourceIndex(selection[0]);
     else
@@ -392,9 +432,9 @@ void EditorWindow::selection(QItemSelection oldSelection, QItemSelection newSele
 
 void EditorWindow::selectSoftwareRow(QModelIndex index)
 {
-    SoftwareTree->selectionModel()->clearSelection();
+    ui->SoftwareTree->selectionModel()->clearSelection();
     QModelIndex filterIndex = getFilterIndex(index);
-    SoftwareTree->selectionModel()->select(filterIndex, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+    ui->SoftwareTree->selectionModel()->select(filterIndex, QItemSelectionModel::Select | QItemSelectionModel::Rows);
     expandSoftwareRow(filterIndex);
 }
 
@@ -406,7 +446,7 @@ void EditorWindow::expandSoftwareRow(QModelIndex index)
     }
     else
     {
-        SoftwareTree->expand(index);
+        ui->SoftwareTree->expand(index);
         expandSoftwareRow(index.parent());
     }
 }

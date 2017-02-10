@@ -11,22 +11,6 @@ bool ControlOsc::setAddress(QStringList Address) {
         bool typeSelectSuccess = false;
 
         int typeSelect = Address.at(2).toInt(&typeSelectSuccess, 10);
-        if (typeSelectSuccess) {
-            if (typeSelect < types.size()) {
-                m_typeSelect = typeSelect;
-                QChar type = types.at(typeSelect);
-                if (type == 's') {
-                    setType("QString");
-                } else
-                if (type == 'f') {
-                    setType("float");
-                } else
-                if (type == 'i') {
-                    setType("int");
-                }
-                return true;
-            }
-        }
     }
     return false;
 }

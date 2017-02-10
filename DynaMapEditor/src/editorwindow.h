@@ -9,7 +9,19 @@
 #include "models/controlmodel.h"
 #include "models/filterjsonproxy.h"
 
-class EditorWindow : public QMainWindow, private Ui::Editor
+//FIXED : Add Controller File Open/Save
+//TODO : Add connect QModelIndexList for Instance autochange from SoftwareGroups
+//TODO : Support %n for osc path
+//TODO : Support %i (instances) fields/value
+//TODO : Add Midi/OSC sender for Software Learn
+//TODO : Sort SoftwareItem/ Path by Name for SLOT(dataChanged)
+
+
+namespace Ui {
+class EditorWindow;
+}
+
+class EditorWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -40,11 +52,13 @@ private slots:
     //Controller SLOTS
     void addControlUI();
     void loadControlUI();
-
+    void saveControlFile();
     void manageControl();
 
     void selection(QItemSelection oldSelection, QItemSelection newSelection);
 private:
+    void addControlUI(QString sourceUiPath);
+
     FilterJsonProxy* SoftwaresProxy;
     SoftwareModel* Softwares;
 
@@ -59,6 +73,8 @@ private:
     QModelIndex getFilterIndex(QModelIndex sourceIndex);
 
     void clearLayout(QLayout * Layout);
+
+    Ui::Editor *ui;
 };
 
 #endif // EDITORWINDOW_H

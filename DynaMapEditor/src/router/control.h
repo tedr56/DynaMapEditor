@@ -2,23 +2,25 @@
 #define CONTROL_H
 
 #include <QObject>
-#include "router/router.h"
+#include <QVariant>
+#include "controlglobal.h"
 
 
 class Control : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(ControlType)
+    //Q_ENUMS(ControlType)
 public:
-    enum ControlType {OSC, MIDI, KEYBOARD};
-
     explicit Control(QObject *parent = 0);
-    explicit Control(QObject *parent = 0, ControlType type = OSC);
+    explicit Control(QObject *parent, ControlProtocol type, QVariant* address1, QVariant* address2);
 
-    void setType(ControlType type);
-    bool setAddress(int MidiChannel, int MidiControl);
-    bool setAddress(QString OscPath, int OscArgument = 0);
-    bool setAddress(int KeyAddress);
+    void AddType(ControlProtocol type);
+    void DelType(ControlProtocol type);
+
+    bool setAddress(ControlProtocol type, QVariant *address1, QVariant *address2);
+    bool setMidiAddress(int MidiChannel, int MidiControl);
+    bool setOscAddress(QString OscPath, int OscArgument = 0);
+    bool setKeyAddress(int KeyAddress);
 
 signals:
     void valueChanged(bool);
@@ -26,8 +28,9 @@ signals:
     void valueChanged(float);
     void valueChanged(QString);
 public slots:
+
 private:
-    ControlType m_type;
+
     //GlobalRouter* m_router;
 };
 

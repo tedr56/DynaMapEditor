@@ -21,7 +21,7 @@ class FilterJsonProxy : public QSortFilterProxyModel
 public:
     FilterJsonProxy(QObject* parent = 0);
     ~FilterJsonProxy();
-    void setSourceModel(QJsonModel *SourceJsonModel); Q_DECL_OVERRIDE;
+    void setSourceModel(QJsonModel *SourceJsonModel);// const Q_DECL_OVERRIDE;
     void clearFilter();
     void setItemTypeFilter(QStringList Types, JsonFilter::Action Action = JsonFilter::Reject, JsonFilter::Operation Operation = JsonFilter::Add);
     void setItemTypeFilter(QString Type, JsonFilter::Action Action = JsonFilter::Reject, JsonFilter::Operation Operation = JsonFilter::Add);

@@ -4,6 +4,11 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 
+#include "learn/controllearn.h"
+
+//Controller management Window
+//Opens ControlLearn for Control Editing
+
 ControllersControlGroupDialog::ControllersControlGroupDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ControllersControlGroupDialog)
@@ -11,6 +16,10 @@ ControllersControlGroupDialog::ControllersControlGroupDialog(QWidget *parent) :
     ui->setupUi(this);
     ControlProxy = new FilterJsonProxy(ui->ControlTree);
     ui->ControlTree->setModel(ControlProxy);
+    QSettings settings;
+
+    ui->LearnMode->setChecked(settings.value("ControllersLearnMode", 0).toBool());
+    connect(ui->LearnMode, SIGNAL(clicked(bool)), this, SLOT(setLearnMode(bool)));
 }
 
 ControllersControlGroupDialog::~ControllersControlGroupDialog()
@@ -41,7 +50,9 @@ void ControllersControlGroupDialog::setControlUI(QString ControlPath)
     }
     QUiLoader uiLoader;
     ui->ControlUI->layout()->addWidget(uiLoader.load(UiFile));
-    connect(ui->ControlAdd, SIGNAL(pressed()), this, SLOT(addControl()));
+    connect(ui->ControlAdd, SIGNAL(clicked(bool)), this, SLOT(addControlMode(bool)));
+    connect(ui->ControlAdd, SIGNAL(released()), this, SLOT(addControlModeEnd()));
+
     return;
 }
 
@@ -55,20 +66,50 @@ void ControllersControlGroupDialog::setRoot(QModelIndex rootIndex)
     ui->ControlTree->setRootIndex(ControlProxy->mapFromSource(rootIndex));
 }
 
-void ControllersControlGroupDialog::addControl()
+void ControllersControlGroupDialog::addControlMode(bool checked)
 {
-    installEventFilter(this);
+    if (checked) {
+        installEventFilter(this);
+    } else {
+        removeEventFilter(this);
+    }
+}
+
+void ControllersControlGroupDialog::setLearnMode(bool mode)
+{
+    QSettings settings;
+    settings.setValue("ControllersLearnMode", mode);
 }
 
 bool ControllersControlGroupDialog::eventFilter(QObject* object, QEvent* event) {
+    Q_UNUSED(object);
     QEvent::Type type = event->type();
     if (type == QEvent::MouseButtonPress) {
         QMouseEvent *mouseEvent = (QMouseEvent*)event;
-        QWidget* widget = this->childAt(mouseEvent->globalPos());
+        QWidget* widget = this->childAt(mouseEvent->pos());
+        QString widgetClass = widget->metaObject()->className();
 
-        qDebug() << widget->inherits("QDial");
-        return true;
+        qDebug() << widgetClass;
 
+        QStringList acceptedWidgetClasses;
+        acceptedWidgetClasses << "QDial" << "QPushButton" << "QSlider";
+
+        if (acceptedWidgetClasses.contains(widgetClass)) {
+            addControl(widget);
+            return true;
+        }
     }
     return false;
+}
+
+void ControllersControlGroupDialog::addControl(QWidget* widget)
+{
+    QString name = widget->objectName();
+    if (ui->LearnMode->isChecked()) {
+        ControlLearn ControlLearnDialog(this);
+        ControlLearnDialog.exec();
+    }
+    else {
+
+    }
 }
